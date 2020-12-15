@@ -251,7 +251,7 @@ tmux_conf_theme_right_separator_sub="|"
 #     - #{username}
 #     - #{username_ssh}
 tmux_conf_theme_status_left="❐ #S |#{pane_current_path}"
-tmux_conf_theme_status_right="#{prefix}#{mouse}#{pairing}#{synchronized} |#(tmux-mem-cpu-load -i 2 -g 10 -m 1 -t 1 -a 3) |↑#{?uptime_y, #{uptime_y}y,}#{?uptime_d, #{uptime_d}d,}#{?uptime_h, #{uptime_h}h,}#{?uptime_m, #{uptime_m}m,} |#(curl -m 1 wttr.in/Beijing?format=3 2>/dev/null; sleep 900) , %R , %d %b |#{?battery_status,#{battery_status},}#{?battery_vbar, #{battery_vbar},}#{?battery_percentage, #{battery_percentage},} |#{username}#{root} |#{hostname}"
+tmux_conf_theme_status_right="#{prefix}#{mouse}#{pairing}#{synchronized} |#(tmux-mem-cpu-load -i 2 -g 10 -m 1 -t 1 -a 3) |↑#{?uptime_y, #{uptime_y}y,}#{?uptime_d, #{uptime_d}d,}#{?uptime_h, #{uptime_h}h,}#{?uptime_m, #{uptime_m}m,} |#(curl -m 1 wttr.in/Beijing?format=3 2>/dev/null; sleep 900) , %R , %d %b |#{?battery_status,#{battery_status},}#{?battery_vbar, #{battery_vbar},}#{?battery_percentage, #{battery_percentage},} |#{username}#{root} |#{hostname} , #{continuum_status}"
 
 # custom status left style
 tmux_conf_theme_status_left_fg="$tmux_conf_theme_colour_18,gray,$tmux_conf_theme_colour_8"
@@ -375,8 +375,8 @@ tmux_conf_copy_to_os_clipboard=true
 
 # replace C-b by C-a instead of using both prefixes
 # set -gu prefix2
-unbind C-a
-unbind C-b
+# unbind C-a
+# unbind C-b
 set -g prefix C-z
 bind C-z send-prefix
 
@@ -384,10 +384,7 @@ bind C-z send-prefix
 #set -g status-position top
 
 # window navigation
-bind -r p previous-window # select previous window
-bind -r n next-window     # select next window
 bind C-z last-window        # move to last active window
-
 
 # -- custom variables ----------------------------------------------------------
 # to define a custom #{foo} variable, define a POSIX shell function between the
