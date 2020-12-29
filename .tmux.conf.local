@@ -253,7 +253,7 @@ tmux_conf_theme_right_separator_sub="|"
 
 LOADAVG='#(tmux-mem-cpu-load -i 2 -g 5 -m 1 -t 1 -a 3)'
 UPTIME='↑#{?uptime_y, #{uptime_y}y,}#{?uptime_d, #{uptime_d}d,}#{?uptime_h, #{uptime_h}h,}#{?uptime_m, #{uptime_m}m,}'
-WEATHER='#(curl -s -m 1 wttr.in/Beijing:Taiyuan?format="%%l:+%%c+%%t+%%w&period=60")'
+WEATHER='#(curl -s -m 1 wttr.in/Beijing:Taiyuan?format="%%l:+%%c+%%t+%%w&period=60";sleep 600)'
 BATTERY='#{?battery_status,#{battery_status},}#{?battery_vbar, #{battery_vbar},}#{?battery_percentage, #{battery_percentage},}'
 tmux_conf_theme_status_left="❐ #S |#{pane_current_path}"
 tmux_conf_theme_status_right="#{prefix}#{mouse}#{pairing}#{synchronized} |$LOADAVG |$UPTIME |$WEATHER , %R , %d %b |$BATTERY |#{username}#{root} |#{hostname} #{continuum_status}"
