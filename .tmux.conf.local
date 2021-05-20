@@ -251,12 +251,13 @@ tmux_conf_theme_right_separator_sub="|"
 #     - #{username}
 #     - #{username_ssh}
 
-LOADAVG='#(tmux-mem-cpu-load -i 2 -g 5 -m 1 -t 1 -a 3)'
+#LOADAVG='#(tmux-mem-cpu-load -i 2 -g 5 -m 1 -t 1 -a 3)'
 UPTIME='↑#{?uptime_y,#{uptime_y}y,}#{?uptime_d,#{uptime_d}d,}#{?uptime_h,#{uptime_h}h,}#{?uptime_m,#{uptime_m}m,}'
-WEATHER='#(curl -s -m 1 wttr.in/Beijing:Taiyuan?format="%%l:+%%c+%%t+%%w&period=60")'
+#WEATHER='#(curl -s -m 1 wttr.in/Beijing:Taiyuan?format="%%l:+%%c+%%t+%%w" 2>/dev/null; sleep 900)'
 BATTERY='#{?battery_status,#{battery_status},}#{?battery_vbar, #{battery_vbar},}#{?battery_percentage, #{battery_percentage},}'
+CPUGPU='#{cpu_bg_color} CPU: #{cpu_icon} #{cpu_percentage} | %a %h-%d %H:%M '
 tmux_conf_theme_status_left="❐ #S |#{pane_current_path}"
-tmux_conf_theme_status_right="#{prefix}#{mouse}#{pairing}#{synchronized} |$LOADAVG |$UPTIME |$WEATHER , %R , %d %b |$BATTERY |#{username}#{root} |#{hostname} #{continuum_status}"
+tmux_conf_theme_status_right="#{prefix}#{mouse}#{pairing}#{synchronized} |#{loadavg} |$UPTIME |#{weather} , %R , %d %b |$BATTERY |#{username}#{root} |#{hostname} #{continuum_status} #{online}"
 
 # custom status left style
 tmux_conf_theme_status_left_fg="$tmux_conf_theme_colour_18,gray,$tmux_conf_theme_colour_8"
@@ -383,7 +384,7 @@ tmux_conf_copy_to_os_clipboard=true
 # unbind C-a
 # unbind C-b
 set -g prefix C-z
-bind C-z send-prefix
+bind C-z send-prefix -2
 
 # move status line to top
 #set -g status-position top
@@ -414,11 +415,21 @@ tmux_conf_update_plugins_on_reload=true
 
 # to enable a plugin, use the 'set -g @plugin' syntax:
 # visit https://github.com/tmux-plugins for available plugins
-#set -g @plugin 'tmux-plugins/tmux-copycat'
+set -g @plugin 'tmux-plugins/tmux-copycat'
 #set -g @plugin 'tmux-plugins/tmux-cpu'
-#set -g @plugin 'tmux-plugins/tmux-resurrect'
-#set -g @plugin 'tmux-plugins/tmux-continuum'
-#set -g @continuum-restore 'on'
+set -g @plugin 'tmux-plugins/tmux-sensible'
+set -g @plugin 'tmux-plugins/tmux-resurrect'
+set -g @plugin 'tmux-plugins/tmux-continuum'
+
+set -g @resurrect-strategy-vim 'session' # for vim
+set -g @resurrect-strategy-nvim 'session' # for neovim
+set -g @resurrect-processes 'ssh psql mysql sqlite3 vi vim nvim emacs man less more tail top htop "~mitmweb --web-host 127.0.0.1 --listen-host 127.0.0.1" zenith btm gtop bandwhich'
+set -g @resurrect-capture-pane-contents 'on' # 恢复面板内容
+set -g @continuum-save-interval '30'
+set -g @continuum-restore 'on'
+set -g @continuum-boot 'on'
+set -g @continuum-boot-options 'iterm,fullscreen'
+set -g @continuum-boot-options 'alacritty,fullscreen'
 
 # -- custom variables ----------------------------------------------------------
 
@@ -435,13 +446,22 @@ tmux_conf_update_plugins_on_reload=true
 #
 # # /!\ do not "uncomment" the functions: the leading "# " characters are needed
 #
+# weather_stat=false
 # weather() {
-#   curl -m 1 wttr.in?format=3 2>/dev/null
-#   sleep 900 # sleep for 15 minutes, throttle network requests whatever the value of status-interval
+#   curl -s -m 1 wttr.in/Beijing:Taiyuan?format="%l:+%c+%t+%w" 2>/dev/null
+#   if [ weather_stat == true ]; then
+#       sleep 900 # sleep for 15 minutes, throttle network requests whatever the value of status-interval
+#   fi
+#   weather_stat=true
 # }
 #
+# online_stat=false
 # online() {
 #   ping -c 1 1.1.1.1 >/dev/null 2>&1 && printf '✔' || printf '✘'
+#   if [ online_stat == true ];then
+#       sleep 900
+#   fi
+#   online_stat=true
 # }
 #
 # "$@"
