@@ -43,7 +43,7 @@ tmux_conf_new_session_prompt=false
 # RGB 24-bit colour support (tmux >= 2.2), possible values are:
 #  - true
 #  - false (default)
-tmux_conf_24b_colour=false
+tmux_conf_24b_colour=true
 
 # custom theme
 tmux_conf_theme_colour_1="default"    # dark gray
@@ -423,13 +423,16 @@ set -g @plugin 'tmux-plugins/tmux-continuum'
 
 set -g @resurrect-strategy-vim 'session' # for vim
 set -g @resurrect-strategy-nvim 'session' # for neovim
-set -g @resurrect-processes 'ssh psql mysql sqlite3 vi vim nvim emacs man less more tail top htop "~mitmweb --web-host 127.0.0.1 --listen-host 127.0.0.1" zenith btm gtop bandwhich'
+set -g @resurrect-processes 'ssh psql mysql sqlite3 vi vim nvim emacs man less more tail jq top htop "~mitmweb --web-host 127.0.0.1 --listen-host 127.0.0.1" zenith btm gtop bandwhich'
 set -g @resurrect-capture-pane-contents 'on' # 恢复面板内容
 set -g @continuum-save-interval '30'
 set -g @continuum-restore 'on'
 set -g @continuum-boot 'on'
 set -g @continuum-boot-options 'iterm,fullscreen'
 set -g @continuum-boot-options 'alacritty,fullscreen'
+
+#### https://github.com/tmux-plugins/tmux-resurrect/blob/master/docs/restoring_pane_contents.md
+set -g default-command "reattach-to-user-namespace -l $SHELL"
 
 # -- custom variables ----------------------------------------------------------
 
