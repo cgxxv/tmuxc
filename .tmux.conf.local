@@ -438,7 +438,7 @@ set -g @plugin 'tmux-plugins/tmux-continuum'
 
 set -g @resurrect-strategy-vim 'session' # for vim
 set -g @resurrect-strategy-nvim 'session' # for neovim
-set -g @resurrect-processes 'ssh psql mysql sqlite3 vi vim nvim emacs man less more tail jq top htop mitmproxy "~mitmweb --web-host 127.0.0.1 --listen-host 127.0.0.1" zenith btm gtop bandwhich'
+set -g @resurrect-processes 'ssh psql mysql sqlite3 vi vim nvim emacs man less more tail jq top htop mitmproxy mitmweb zenith btm gtop bandwhich bpytop'
 set -g @resurrect-capture-pane-contents 'on' # 恢复面板内容
 set -g @continuum-save-interval '30'
 set -g @continuum-restore 'on'
