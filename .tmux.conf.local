@@ -446,9 +446,6 @@ set -g @continuum-boot 'on'
 set -g @continuum-boot-options 'iterm,fullscreen'
 set -g @continuum-boot-options 'alacritty,fullscreen'
 
-#### https://github.com/tmux-plugins/tmux-resurrect/blob/master/docs/restoring_pane_contents.md
-set -g default-command "reattach-to-user-namespace -l $SHELL"
-
 set -g default-shell /usr/local/bin/fish
 
 # -- custom variables ----------------------------------------------------------
