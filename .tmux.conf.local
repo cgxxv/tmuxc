@@ -459,7 +459,7 @@ set -g @continuum-boot 'on'
 set -g @continuum-boot-options 'iterm,fullscreen'
 set -g @continuum-boot-options 'alacritty,fullscreen'
 
-set -g default-shell /usr/local/bin/fish
+set -g default-shell /opt/local/bin/fish
 
 # -- custom variables ----------------------------------------------------------
 
